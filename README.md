@@ -16,7 +16,7 @@ In addition, due to COVID-19, companies will need to strengthen their Credit Ris
 
 PS 1: All the references are stated at the end of this README.
 
-PS 2: You can find useful information at section 1 of my notebook.
+PS 2: You can find useful information at **section 1** of my [notebook](https://github.com/brunokatekawa/credit_risk/blob/master/Credit_Risk.ipynb).
 
 <br>
 
@@ -162,8 +162,6 @@ As observed, the PR curves for `XGBoostClassifier` and `CatboostClassifier` are 
 
 As we defined at Business Metrics section, the `XGBClassifier` satisfies the conditions. But wait, `Logistic Regression` has the least number of FN, why not choosing it? Yes, it has, but the number of FP is way too high (`1024`) compared with other algorithms.
 
-<br>
-
 #### 3.1.3.1 Choosing the overall best algorithm
 
 As we are dealing with **imbalaced data set**, the most relevant metric, in this case, is the **F1-Score** which is used **when the False Negatives and False Positives are crucial**. For this project, False Negatives are crucial, since losing these people could lead to company financial loss. Thus, the algorithm that best suits the needs is **XGBoost Classifier**.
@@ -191,11 +189,11 @@ Thus, it's time to estimate the total expected loss given all our decisions.
 
 ![](img/total_expected_loss.png)
 
-Doing the calculations, the total expected loss is \$19,596,497.74.
+Doing the calculations, the **total expected loss is \$19,596,497.74**.
 
 This is the total expected loss for the entire portfolio using the credit risk model developed in this project.
 
-\$19.6 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35,395,287.50 without the any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$15.8 million dollars.
+\$19.6 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35.4 million without the any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$15.8 million dollars.
 
 ### 3.1.5 Machine Learning Performance for the chosen algorithm
 
