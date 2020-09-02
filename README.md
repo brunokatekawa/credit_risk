@@ -164,7 +164,7 @@ As we defined at Business Metrics section, the `XGBClassifier` satisfies the con
 
 #### 3.1.3.1 Choosing the overall best algorithm
 
-As we are dealing with **imbalaced data set**, the most relevant metric, in this case, is the **F1-Score** which is used **when the False Negatives and False Positives are crucial**. For this project, False Negatives are crucial, since losing these people could lead to company financial loss. Thus, the algorithm that best suits the needs is **XGBoost Classifier**.
+As we are dealing with **imbalaced data set**, the most relevant metric, in this case, is the **F1-Score and Recall** which are used **when the False Negatives and False Positives are crucial**. For this project, False Negatives are crucial, since losing these loans could lead to company financial loss. Thus, the algorithm that best suits the needs is **XGBoost Classifier**.
 
 <br>
 
