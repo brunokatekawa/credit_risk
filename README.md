@@ -193,7 +193,7 @@ Doing the calculations, the **total expected loss is \$19,596,497.74**.
 
 This is the total expected loss for the entire portfolio using the credit risk model developed in this project.
 
-\$19.6 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35.4 million without the any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$15.8 million dollars.
+\$19.6 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35.4 million without any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$15.8 million dollars.
 
 ### 3.1.5 Machine Learning Performance for the chosen algorithm
 
