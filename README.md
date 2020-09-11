@@ -36,7 +36,13 @@ PS 2: You can find useful information at **section 1** of my [notebook](https://
 
 # 3.0 The solution
 
-In this project, I managed to address **challenges B, D and E** by developing a credit risk model that intakes a portfolio of potential customers (.csv file), builds a strategy table and calculates the total expected loss, assuming that the exposure is the full value of the loan, and the loss given default is 100%. This means that a default on each loan is a loss of the entire amount.
+In this project, I managed to address **challenges B, D and E** by developing a credit risk model that intakes a portfolio of potential customers (.csv file), builds a strategy table and calculates the total expected loss, for example, if we assume that the exposure is the full value of the loan, and the loss given default is 100%. This means that a default on each loan is a loss of the entire amount.
+
+![](img/demo_video.gif)
+
+Check it live here: https://credit-risk-bk.herokuapp.com/
+
+**OBS: It may take a while to load the app, because I'm using the free tier of Heroku and in this tier app hibernate after 30 min of inactivity.**
 
 <br>
 
