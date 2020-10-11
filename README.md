@@ -156,17 +156,12 @@ Tests were made using different algorithms.
 
 The <mark>**highlighted cells**</mark> correspond to the max value at each column.
 
-#### PR Curves
-
-![](img/ml_alg_pr_auc.png)
-
-As observed, the PR curves for `XGBoostClassifier` and `CatboostClassifier` are pretty close. However, the Confusion Matrices are different and it helped when deciding which algorithm to choose.
 
 #### Confusion Matrices
 
 ![](img/ml_alg_cm.png)
 
-As we defined at Business Metrics section, the `XGBClassifier` satisfies the conditions. But wait, `Logistic Regression` has the least number of FN, why not choosing it? Yes, it has, but the number of FP is way too high (`1024`) compared with other algorithms.
+As mentioned before, the `CatBoostClassifier` satisfies the conditions. But wait, `Logistic Regression` has the least number of FN, why not choosing it? Yes, it has, but the number of FP is way too high (`1217`) compared with other algorithms.
 
 #### 3.1.3.1 Choosing the overall best algorithm
 
@@ -199,29 +194,32 @@ Doing the calculations, the **total expected loss is \$19,596,497.74**.
 
 This is the total expected loss for the entire portfolio using the credit risk model developed in this project.
 
-\$19.6 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35.4 million without any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$15.8 million dollars.
+\$17.55 million may seem like a lot, but the total expected loss would have been over $29 million without a proper model and **\$35.4 million without any model at all!** Some losses are unavoidable, but this project here might have saved the company about \$17.8 million dollars.
 
 ### 3.1.5 Machine Learning Performance for the chosen algorithm
 
-The chosen algorithm was the **XGBoost Classifier**. In addition, I made a performance calibration on it.
+The chosen algorithm was the **CatBoost Classifier**. In addition, I made a performance calibration on it.
 
-#### Precision and Recall, AUC and Confusion Matrix
+#### Precision, Recall, ROC AUC and other metrics
 
-| Accuracy | F1-Score | PR AUC | F1-Macro |
-| -------- | -------- | ------ | -------- |
-| 0.930482 | 0.8257   | 0.9474 | 0.8912   |
+These are the metrics obtained from the test set.
+
+| precision | recall  | f1\-score | roc auc | cohen kappa | accuracy |
+|-----------|---------|-----------|---------|-------------|----------|
+| 0\.9535   | 0\.7234 | 0\.8227   | 0\.9367 | 0\.7812     | 0\.9316  |
 
 <br>
 
-|              | precision | recall | f1\-score | support |
-| -----------: | --------: | -----: | --------: | ------: |
-|            0 |     0\.93 |  0\.98 |     0\.96 |    5749 |
-|            1 |     0\.92 |  0\.75 |     0\.83 |    1616 |
-|     accuracy |           |        |     0\.93 |    7365 |
-|    macro avg |     0\.93 |  0\.87 |     0\.89 |    7365 |
-| weighted avg |     0\.93 |  0\.93 |     0\.93 |    7365 |
+The summary below shows the metrics comparison after running a cross validation score with stratified K-Fold with 10 splits in the full data set.
 
-![](img/model-pr-auc-cm.png)
+|                                                | Avg Precision             | Avg Recall                | f1\-score                 | Avg ROC AUC               |
+|------------------------------------------------|---------------------------|---------------------------|---------------------------|---------------------------|
+| CatBoost Classifier                            | 0\.8796 \(\+/\- 0\.1956\) | 0\.7190 \(\+/\- 0\.1793\) | 0\.7837 \(\+/\- 0\.0976\) | 0\.9041 \(\+/\- 0\.1005\) |
+| CatBoost Classifier \(Tuned HP\)               | 0\.9101 \(\+/\- 0\.1554\) | 0\.7155 \(\+/\- 0\.1743\) | 0\.7947 \(\+/\- 0\.0823\) | 0\.9100 \(\+/\- 0\.0847\) |
+| CatBoost Classifier \(Tuned HP \+ Calibrated\) | 0\.9625 \(\+/\- 0\.0693\) | 0\.7060 \(\+/\- 0\.1808\) | 0\.8100 \(\+/\- 0\.0959\) | 0\.9094 \(\+/\- 0\.0873\) |
+
+As observed, although the CatBoost Classifier (Tunned HP) has a higher recall and ROC AUC, its probabilities aren't calibrated, so we're using the **CatBoost Classifier (Tuned HP + Calibrated)** in our web app because it's worth the trade-off between a little less precision, but a higher calibration quality. In addition, the Tuned HP + Claibrated model has a higher precision and f1-score.
+
 
 <br>
 
