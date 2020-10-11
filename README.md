@@ -165,7 +165,7 @@ As mentioned before, the `CatBoostClassifier` satisfies the conditions. But wait
 
 #### 3.1.3.1 Choosing the overall best algorithm
 
-As we are dealing with **imbalaced data set**, the most relevant metric, in this case, is the **F1-Score and Recall** which are used **when the False Negatives and False Positives are crucial**. For this project, False Negatives are crucial, since losing these loans could lead to company financial loss. Thus, the algorithm that best suits the needs is **XGBoost Classifier**.
+As observed, for the context of our project, we are aiming for recall. `LogisticRegression` presents the highest recall score. However, it's precision score is the lowest. Let's assume we are aiming more for recall and moderate to precision, we could then, take advantage of f1-score, as it's the harmonic average between precision and recall. Thus, the algorithm that satisfies this need is **`CatBoostClassifier`**.
 
 <br>
 
