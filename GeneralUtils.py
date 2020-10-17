@@ -16,17 +16,12 @@ from itertools import permutations
 # statistical tests
 from statsmodels.stats.weightstats import DescrStatsW, CompareMeans
 
-# Algorithms - Classifiers
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from imblearn.ensemble import BalancedRandomForestClassifier
-import xgboost as xgb
-from catboost import CatBoostClassifier
-
 # metrics
-from sklearn.metrics import precision_recall_fscore_support, confusion_matrix, f1_score
-from sklearn.metrics import roc_auc_score, accuracy_score, cohen_kappa_score
-from sklearn.metrics import precision_recall_curve, precision_score, recall_score
+from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, cohen_kappa_score
+from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import precision_recall_curve, roc_curve
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import cross_val_score
 from sklearn.calibration import calibration_curve
 
 
@@ -342,6 +337,15 @@ class GeneralUtils(object):
 
         return accuracy, kappa, f1, auc_score, precision, recall
 
+    def cross_validate_classifier(self, classifier, X, y, scorings, cv_strategy):
+        # calculates the cross validation scores
+        for scoring in scorings:
+            cv_scores = cross_val_score(classifier, X, y, cv=cv_strategy, scoring=scoring, n_jobs=1)
+
+            # prints the average value and standard deviation for the current scoring
+            print("Average " + scoring + ": %0.4f (+/- %0.4f)" % (cv_scores.mean(), cv_scores.std() * 2))
+            print()
+
     def plot_pr_auc(self, y_test, model_probs, model_name):
         """
             Plots PR AUC curve
@@ -446,6 +450,38 @@ class GeneralUtils(object):
 
         # adjusts subplot
         plt.tight_layout()
+
+        # displays the plot
+        plt.show()
+
+    def plot_roc_curve(self, classifier, X_test, y_test):
+        # uses the variable ax for single a Axes
+        fig, ax = plt.subplots()
+
+        # sets the figure size in inches
+        ax.figure.set_size_inches(10, 6)
+
+        # generate a no skill prediction (majority class)
+        ns_probs = [0 for _ in range(len(y_test))]
+
+        # predicts probabilities
+        clf_probs = classifier.predict_proba(X_test)
+
+        # calculates the roc curves
+        ns_fpr, ns_tpr, _ = roc_curve(y_test, ns_probs)
+        clf_fpr, clf_tpr, _ = roc_curve(y_test, clf_probs[:, 1])
+
+        # plots the roc curve for the model
+        plt.plot(ns_fpr, ns_tpr, linestyle='--', label='No Skill')
+        plt.plot(clf_fpr, clf_tpr, marker='.', label=type(clf).__name__)
+
+        # sets plot features
+        plt.title("ROC Curve", fontsize=14)
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+
+        # displays the legend
+        plt.legend()
 
         # displays the plot
         plt.show()
